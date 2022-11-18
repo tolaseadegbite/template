@@ -1,27 +1,44 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Questionnaires</h1>
+<% if controller.controller_name == 'questionnaires' %>
+  <% if controller.action_name == "index" %>
+    <h1>All Evaluations</h1>
+  <% elsif controller.action_name == "ND_I" %>
+    <h1>ND I Evaluations</h1>
+  <% elsif controller.action_name == "ND_II" %>
+    <h1>ND II Evaluations</h1>
+  <% elsif controller.action_name == "HND_I" %>
+    <h1>HND I Evaluations</h1>
+  <% else %>
+    <h1>HND II Evaluations</h1>
+  <% end %>
+<% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<%= link_to 'New Questionnaire', new_questionnaire_path, class: "btn btn-outline-primary mb-3" if current_user.admin? %>
 
-  <tbody>
-    <% @questionnaires.each do |questionnaire| %>
-      <tr>
-        <td><%= questionnaire.name %></td>
-        <td><%= link_to 'Show', questionnaire %></td>
-        <td><%= link_to 'Edit', edit_questionnaire_path(questionnaire) %></td>
-        <td><%= link_to 'Destroy', questionnaire, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% @questionnaires.each do |q| %>
+  <% if current_user.level == q.level || current_user.admin? %>
+    <div class="card mb-3">
+      <div class="card-header">
+        <p><%= q.level %> | Taken by: Dr John Doe</p>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title"><%= q.name %></h5>
+        <p class="card-text"><%= simple_format(q.description) %></p>
+        <%= link_to "Respond", new_questionnaire_response_path(q), class: "btn btn-primary btn-sm" %>
+      </div>
+      <% unless !current_user.admin? %>
+        <div class="card-footer text-muted">
+          <% if current_user.admin? %>
+            <%= link_to pluralize(q.responses.count, "Response"), questionnaire_responses_path(q) %> 
+            <%= link_to 'Show', q %> |
+            <%= link_to 'Edit', edit_questionnaire_path(q) %> |
+            <%= link_to 'Destroy', q, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
 
-<br>
-
-<%= link_to 'New Questionnaire', new_questionnaire_path %>
+<% Rails.logger.debug response.inspect %>

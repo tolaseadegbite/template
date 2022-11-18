@@ -36,6 +36,7 @@ group :development do
   # Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/blob/master/README.md
   # gem 'rack-mini-profiler', '~> 2.0'
   gem 'listen', '~> 3.3'
+  gem "annotate"
 end
 
 group :test do
@@ -50,3 +51,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "hotwire-rails", "~> 0.1.3"
+
+gem "devise", "~> 4.8"
+gem 'sassc-rails'
+gem 'rails_admin'

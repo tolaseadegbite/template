@@ -1,6 +1,10 @@
 class ResponsesController < ApplicationController
-  before_action :set_questionnaire, except: :show
+  before_action :set_questionnaire
   before_action :set_response, only: %i[ edit update destroy ]
+
+  def index
+    @responses = @questionnaire.responses
+  end
 
   def show
     @questionnaire = Questionnaire.includes(questions: :answers).find(params[:questionnaire_id])
@@ -28,10 +32,11 @@ class ResponsesController < ApplicationController
   end
 
   def set_response
-    @response = @questionnaire.responses.find(params[:id])
+    @response = Response.find(params[:id])
   end
 
   def response_params
-    params.require(:response).permit(:questionnaire_id, answers: {})
+    params.require(:response).permit(:questionnaire_id, answers: {}).merge(user: current_user)
+    # .merge(questionnaire_id: params[:questionnaire_id])
   end
 end

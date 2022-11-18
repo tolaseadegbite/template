@@ -1,7 +1,38 @@
 <%= form_with(model: questionnaire) do |form| %>
+
+  <% if questionnaire.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(questionnaire.errors.count, "error") %> prohibited this questionnaire from being saved:</h2>
+
+      <ul>
+      <% questionnaire.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+
+    <div class="mb-3">
+      <%= form.label :name %>
+      <%= form.text_field :name, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :description %>
+      <%= form.text_area :description, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%#= form.label :Level %>
+      <%= form.select :level, Questionnaire.levels.keys.map{ |key| [key.humanize.upcase, key] }, prompt: "Select level", class: "form-select", selected: @questionnaire.level %>
+    </div>
+    
+    <div class="mb-3">
+      <%= form.label :semester %>
+      <%= form.number_field :semester, autofocus: false, class: "form-control" %>
+    </div>
   </div>
 
   <div data-controller="nested-form" data-nested-form-index-value='QUESTION_RECORD'>

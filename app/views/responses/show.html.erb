@@ -1,6 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <h1><%= @questionnaire.name %></h1>
+<p>Submitted by: <%= @response.user.name %>(<%= @response.user.matric_number %>)</p>
+<hr>
 
 <% @questionnaire.questions.each do |question| %>
   <h2><%= question.name %></h2>

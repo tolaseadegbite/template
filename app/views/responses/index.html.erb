@@ -1,0 +1,8 @@
+<h1>Responses page</h1>
+<hr>
+
+<ol>
+<% @responses.each do |response| %>
+    <li><%= link_to response.questionnaire.name, questionnaire_response_path(response.questionnaire, response) %> (By: <%= response.user.name %>)</li>
+<% end %>
+</ol>
