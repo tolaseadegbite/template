@@ -14,13 +14,13 @@
   <% end %>
 <% end %>
 
-<%= link_to 'New Questionnaire', new_questionnaire_path, class: "btn btn-outline-primary mb-3" if current_user.admin? %>
+<%= link_to 'New Evaluation', new_questionnaire_path, class: "btn btn-secondary mb-3" if current_user.admin? %>
 
 <% @questionnaires.each do |q| %>
   <% if current_user.level == q.level || current_user.admin? %>
     <div class="card mb-3">
       <div class="card-header">
-        <p><%= q.level %> | Taken by: Dr John Doe</p>
+        <p>Level: <%= q.level %> | lecturer: Dr John Doe</p>
       </div>
       <div class="card-body">
         <h5 class="card-title"><%= q.name %></h5>
@@ -30,7 +30,7 @@
       <% unless !current_user.admin? %>
         <div class="card-footer text-muted">
           <% if current_user.admin? %>
-            <%= link_to pluralize(q.responses.count, "Response"), questionnaire_responses_path(q) %> 
+            <%= link_to pluralize(q.responses.count, "Response"), questionnaire_responses_path(q) %> |
             <%= link_to 'Show', q %> |
             <%= link_to 'Edit', edit_questionnaire_path(q) %> |
             <%= link_to 'Destroy', q, method: :delete, data: { confirm: 'Are you sure?' } %>

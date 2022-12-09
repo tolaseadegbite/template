@@ -27,7 +27,7 @@
             </a>
             <ul class="dropdown-menu">
                 <%= link_to "Edit Account", edit_user_registration_path, class: "dropdown-item" %>
-                <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "dropdown-item bg-danger" %>
+                <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
             </ul>
             </li>
         <% else %>

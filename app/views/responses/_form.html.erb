@@ -15,15 +15,14 @@
           <p>
             <%= response.radio_button question.id, answer.id, required: question.required %>
             <%= answer.name %>
-          </p>
-        <% end %>
+        <% end %><hr>
       <% when 'multiple_choice' %>
         <% question.answers.each do |answer| %>
           <p>
             <%= response.check_box question.id, { multiple: true }, answer.id %>
             <%= answer.name %>
           </p>
-        <% end %>
+        <% end %><hr>
       <% when 'long_answer' %>
         <%= response.text_area question.id, required: question.required %>
       <% end %>
