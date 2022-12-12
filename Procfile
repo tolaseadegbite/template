@@ -1,1 +1,1 @@
-web: rake db:migrate && bin/rails server -b 0.0.0.0 -p ${PORT:-3000} && /bin/bash -ol pipefail -c bundle exec rake assets:precompile
+web: rake db:migrate && bin/rails server -b 0.0.0.0 -p ${PORT:-3000}
